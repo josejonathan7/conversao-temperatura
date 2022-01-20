@@ -1,0 +1,36 @@
+#comando para executar: kubectl apply -f replicaset.yaml
+#versão da minha api pode ser consultada atráves do comando kubectl api-version
+apiVersion: apps/v1
+#o serviço que quero criar tipo ReplicaSet ou pod
+kind: ReplicaSet
+#pelo que entendi onde eu declaro o nome e as labels do meu serviço
+metadata:
+  name: meuReplicaSet
+
+#onde insiro as caracteristicas do meu serviço
+spec:
+  #numero de replicas que quero criar/ter
+  replicas: 3
+  #onde eu defino as labels que vou usar
+  selector:
+    matchLabels:
+      app: web
+
+  #onde defino os meus serviços que são usados no meu selector
+  templetate:
+    metadata:
+      #onde defino minha label que é referenciada no meu selector
+      labels:
+        app: web
+    spec:
+      #onde determino as caracteriscas do meu container(s)
+      containers:
+        #nome do meu container
+        name: web
+        #imagem do meu conteiner, normalmente pega do dockerhub
+        image: josejonathan/conversao-temperatura:v1
+        #porta que é exebida pelo meu container
+        ports:
+          - containerPort: 3000
+  
+      

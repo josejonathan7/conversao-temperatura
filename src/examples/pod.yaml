@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+#o serviço que quero criar tipo ReplicaSet ou pod
+kind: pod
+#pelo que entendi onde eu declaro o nome e as labels do meu serviço
+metadata:
+  #onde defino minha label que é referenciada no meu selector
+  labels:
+    app: web
+spec:
+  #onde determino as caracteriscas do meu container(s)
+  containers:
+    #nome do meu container
+    name: web
+    #imagem do meu conteiner, normalmente pega do dockerhub
+    image: josejonathan/conversao-temperatura:v1
+    #porta que é exebida pelo meu container
+    ports:
+      - containerPort: 3000
